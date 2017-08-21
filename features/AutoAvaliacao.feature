@@ -22,3 +22,10 @@ Scenario: self-evaluation
 Given the student "Guilherme" has attributed "MPA" to himself for goal “Write Requirements in Gherkin format” AND has not attributed any evaluation for goal "Write Scenarios"
 When the information is submitted
 Then the evaluation isn`t stored.
+
+Scenario: No discrepancy found
+    Given The students "Guilherme", "Jose", and "Joao" have submitted their self-evaluation
+    And The student "Guilherme" has 20% discrepancy
+    And The students "Jose" and "Edjan" have 0% discrepancy each
+    When Professor "Paulo Borba" requests the "Discrepâncias" page
+    Then Professor "Paulo Borba" sees an error message
