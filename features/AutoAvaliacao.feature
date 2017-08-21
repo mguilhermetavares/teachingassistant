@@ -29,3 +29,11 @@ Scenario: No discrepancy found
     And The students "Jose" and "Edjan" have 0% discrepancy each
     When Professor "Paulo Borba" requests the "Discrepâncias" page
     Then Professor "Paulo Borba" sees an error message
+
+Scenario: Discrepancy found
+    Given The students "Guilherme", "Jose", and "Joao" have submitted their self-evaluation
+    And The student "Guilherme" has discrepancy >= 25%
+    And The students "Jose" and "Joao" have discrepancy < 25%
+    When Professor "Paulo Borba" requests the "Discrepâncias" page
+    Then Professor "Paulo Borba" sees a "Discrepâncias" page with the fields "Quantidade", "Porcentagem" holding the values "1", "33.3%"
+    And The list "Alunos" has just the name "Guilherme" in it. Extra info branch discrepantes
